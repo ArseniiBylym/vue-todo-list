@@ -6,40 +6,40 @@ const modalStore = {
     edit: false,
   },
   getters: {
-    isOpen: state => state.open,
-    fields: state => state.data,
-    isEdit: state => state.edit,
+    s$modal__isOpen: state => state.open,
+    s$modal__getFields: state => state.data,
+    s$modal__isEdit: state => state.edit,
   },
   mutations: {
-    open(state) {
+    s$modal__open(state) {
       state.open = true;
     },
-    close(state) {
+    s$modal__close(state) {
       state.open = false;
     },
-    setData(state, data) {
+    s$modal__setData(state, data) {
       state.data = data;
     },
-    setEditMode(state, payload) {
+    s$modal__setEditMode(state, payload) {
       state.edit = payload;
     },
-    clearData(state) {
+    s$modal__clearData(state) {
       state.data = null;
     },
   },
   actions: {
-    async open({commit}) {
-      commit('open');
+    async s$modal__open({commit}) {
+      commit('s$modal__open');
     },
-    async edit({commit}, data) {
-      commit('setData', data);
-      commit('open');
-      commit('setEditMode', true)
+    async s$modal__edit({commit}, data) {
+      commit('s$modal__setData', data);
+      commit('s$modal__open');
+      commit('s$modal__setEditMode', true)
     },
-    async close({commit}) {
-      commit('close');
-      commit('clearData');
-      commit('setEditMode', false)
+    async s$modal__close({commit}) {
+      commit('s$modal__close');
+      commit('s$modal__clearData');
+      commit('s$modal__setEditMode', false)
     },
   },
 };

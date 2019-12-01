@@ -1,8 +1,8 @@
 <template>
-  <div v-if="isOpen" class="modal">
+  <div v-if="s$modal__isOpen" class="modal">
     <div class="content">
       <div class="header">
-        <h3>{{fields ? 'Edit todo' : 'Create new todo'}}</h3>
+        <h3>{{s$modal__getFields ? 'Edit todo' : 'Create new todo'}}</h3>
       </div>
       <div class="form">
         <label>
@@ -16,7 +16,7 @@
       </div>
       <div class="controls">
         <button class="create" @click="handleSuccess" :disabled="isDisabled">Create</button>
-        <button class="cancel" @click="close">Cancel</button>
+        <button class="cancel" @click="handleClose">Cancel</button>
       </div>
     </div>
   </div>
@@ -24,7 +24,6 @@
 
 <script>
 import {mapGetters, mapActions} from 'vuex';
-
 export default {
   data() {
     return {
@@ -33,43 +32,42 @@ export default {
     };
   },
   computed: {
-    ...mapGetters('modal', ['isOpen', 'fields', 'isEdit']),
-    isDisabled: function() {
+    ...mapGetters('modal', ['s$modal__isOpen', 's$modal__getFields', 's$modal__isEdit']),
+    isDisabled() {
       return !this.title.length || !this.text.length;
     },
   },
   watch: {
-    isOpen(newValue, oldValue) {
-      if (newValue && this.isEdit) {
+    s$modal__isOpen(newValue, oldValue) {
+      if (newValue && this.s$modal__isEdit) {
         this.setFields();
       }
       if(!newValue) {
-         this.title = '';
+        this.title = '';
         this.text = '';
       }
     }
   },
   methods: {
-    ...mapActions('modal', ['open', 'close']),
-    ...mapActions('todos', ['addTodo', 'updateTodo']),
+    ...mapActions('modal', ['s$modal__open', 's$modal__close']),
+    ...mapActions('todos', ['s$todos__addTodo', 's$todos__updateTodo']),
     async handleSuccess() {
-     this.isEdit ? await this.updateTodo({title: this.title, text: this.text, _id: this.fields._id}) : await this.addTodo({title: this.title, text: this.text});
-     this.close();
+      
+      this.s$modal__isEdit 
+        ? await this.s$todos__updateTodo({title: this.title, text: this.text, _id: this.s$modal__getFields._id})
+        : await this.s$todos__addTodo({title: this.title, text: this.text})
+      this.s$modal__close();
     },
     handleClose() {
       this.title = '';
       this.text = '';
-      this.close();
+      this.s$modal__close();
     },
     setFields() {
-      this.title = this.fields ? this.fields.title : '';
-      this.text = this.fields ? this.fields.text : '';
+      this.title = this.s$modal__getFields.title || '';
+      this.text = this.s$modal__getFields.text || '';
     }
   },
-  mounted() {
-    this.setFields
-  }
-
 };
 </script>
 

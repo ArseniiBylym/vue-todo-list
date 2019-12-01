@@ -14,7 +14,7 @@
 import ModalTodo from '@/components/ModalTodo';
 import Header from '@/components/Header'
 export default {
-  name: 'layout',
+  name: 'Layout',
   components: {
     Header,
     ModalTodo

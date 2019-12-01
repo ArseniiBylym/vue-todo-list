@@ -2,16 +2,14 @@
   <Layout>
     <div class="todos">
       <h1>Todos</h1>
-      <div v-if="loading" class="spinner">Loading...</div>
+      <div v-if="s$todos__loading" class="spinner">Loading...</div>
       <div v-else class="content">
-        <template v-if="!todos.length">
-          <h3>Todo list is empty now</h3>
-        </template>
+        <h3 v-if="!s$todos__todos.length">Todo list is empty now</h3>
         <template v-else>
           <FilterSelect />
-          <Todo v-for="todo in filteredTodos" :key="todo._id" :item="todo" />
+          <Todo v-for="todo in s$todos__filteredTodos" :key="todo._id" :item="todo" />
         </template>
-        <button @click="open">+ New</button>
+        <button @click="s$modal__open">+ New</button>
       </div>
     </div>
   </Layout>
@@ -21,25 +19,22 @@
 import {Layout, Todo, FilterSelect} from '@/components';
 import {mapGetters, mapActions} from 'vuex';
 export default {
-  name: 'todos',
+  name: 'Todos',
   components: {
     Layout,
     Todo,
     FilterSelect
   },
   computed: {
-    ...mapGetters('todos', ['todos', 'filteredTodos', 'loading']),
+    ...mapGetters('todos', ['s$todos__todos', 's$todos__filteredTodos', 's$todos__loading']),
   },
   methods: {
-    ...mapActions('todos', ['fetchTodos']),
-    ...mapActions('modal', ['open'])
+    ...mapActions('todos', ['s$todos__fetchTodos']),
+    ...mapActions('modal', ['s$modal__open'])
   },
   mounted() {
-    this.fetchTodos();
+    this.s$todos__fetchTodos();
   },
-  updated() {
-    console.log(this.filteredTodos)
-  }
 };
 </script>
 

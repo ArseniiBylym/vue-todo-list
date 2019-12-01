@@ -5,34 +5,34 @@ const authStore = {
     loading: false,
   },
   getters: {
-    user: state => state.user,
-    isAuth: state => !!state.user,
-    isLoading: state => state.loading
+    s$auth__user: state => state.user,
+    s$auth__isAuth: state => !!state.user,
+    s$auth__isLoading: state => state.loading
   },
   mutations: {
-    login (state, user) {
+    s$auth__login (state, user) {
       state.user = user;
     },
-    logout(state) {
+    s$auth__logout(state) {
       state.user = null;
     },
-    switchLoading(state, value) {
+    s$auth__switchLoading(state, value) {
       state.loading = value;
     }
   },
   actions: {
-    async login({commit}, user) {
-      commit('switchLoading', true)
+    async s$auth__login({commit}, user) {
+      commit('s$auth__switchLoading', true)
       setTimeout(() => {
-        commit('login', user);
-        commit('switchLoading', false)
+        commit('s$auth__login', user);
+        commit('s$auth__switchLoading', false)
       }, 2000)
     },
-    async logout({commit}) {
-      commit('switchLoading', true)
+    async s$auth__logout({commit}) {
+      commit('s$auth__switchLoading', true)
       setTimeout(() => {
-        commit('logout');
-        commit('switchLoading', false)
+        commit('s$auth__logout');
+        commit('s$auth__switchLoading', false)
       }, 2000)
     }
   }

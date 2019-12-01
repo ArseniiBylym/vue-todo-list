@@ -44,19 +44,14 @@ const router = new Router({
     {
       path: '/todos',
       name: 'todos',
-      // route level code-splitting
-      // this generates a separate chunk (about.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
-      component: () => import(/* webpackChunkName: "about" */ '@/views/Todos.vue'),
+      component: () => import(/* webpackChunkName: "todos" */ '@/views/Todos.vue'),
       meta: {auth: true}
     },
   ],
 });
 
 router.beforeEach((to, from, next) => {
-  console.log(store.getters['auth/isAuth'])
-  const isAuth = store.getters['auth/isAuth'];
-  console.log(to)
+  const isAuth = store.getters['auth/s$auth__isAuth'];
   if(isAuth && !to.meta.auth) {
     next('/todos')
   }

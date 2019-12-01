@@ -1,6 +1,6 @@
 <template>
   <div class="filter">
-    <select name="filter" :value="filter" @change="handleChange">
+    <select name="filter" :value="s$todos__getFilter" @change="handleChange">
       <option value="0">All</option>
       <option value="1" >Completed</option>
       <option value="2">Not completed</option>
@@ -13,15 +13,15 @@ import {mapGetters, mapActions} from 'vuex';
 export default {
   computed: {
     ...mapGetters('todos', [
-      'filter'
+      's$todos__getFilter'
     ])
   },
   methods: {
     ...mapActions('todos', [
-      'changeFilter'
+      's$todos__changeFilter'
     ]),
     handleChange(e) {
-      this.changeFilter(Number(e.target.value))
+      this.s$todos__changeFilter(Number(e.target.value))
     }
   }
 }

@@ -9,7 +9,7 @@
 <script>
 import {Layout} from '@/components';
 export default {
-  name: 'home',
+  name: 'Home',
   components: {
     Layout,
   },

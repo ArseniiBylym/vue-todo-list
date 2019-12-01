@@ -3,35 +3,22 @@
     <div class="logo">Logo</div>
     <nav class="links">
       <router-link to="/" active-class="active" exact>Home</router-link>
-      <router-link v-if="isAuth" to="/todos" active-class="active">Todos</router-link>
+      <router-link v-if="s$auth__isAuth" to="/todos" active-class="active">Todos</router-link>
     </nav>
-    <router-link v-if="isAuth" to="/profile" active-class="active">Profile</router-link>
+    <router-link v-if="s$auth__isAuth" to="/profile" active-class="active">Profile</router-link>
     <router-link v-else to="/auth/login" active-class="active">Login</router-link>
   </div>
 </template>
 
 <script>
-import {mapActions, mapGetters} from 'vuex';
+import {mapGetters} from 'vuex';
 export default {
-  // name: 'header',
-  data() {
-    return {};
-  },
+  name: 'Header',
   computed: {
     ...mapGetters('auth', [
-      'isAuth'
+      's$auth__isAuth'
     ]),
   },
-
-  // methods: {
-  //   ...mapActions('auth', [
-  //     'login',
-  //     'logout'
-  //   ]),
-  //   handleLogin() {
-  //     this.login({name:'john'})
-  //   },
-  // }
 };
 </script>
 

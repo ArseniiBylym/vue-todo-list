@@ -8,7 +8,7 @@
       <div class="text">{{item.text}}</div>
     </div>
     <div class="controls">
-      <span class="edit" @click="edit(item)">Edit</span>
+      <span class="edit" @click="handleEdit(item)">Edit</span>
       <span class="delete" @click="handleDelete">Delete</span>
     </div>
   </div>
@@ -17,24 +17,21 @@
 <script>
 import {mapActions} from 'vuex';
 export default {
-  name: 'todo',
+  name: 'Todo',
   props: ['item'],
   methods: {
-    ...mapActions('todos', [
-      'updateTodo',
-      'deleteTodo'
-    ]),
-    ...mapActions('modal', [
-      'edit'
-    ]),
+    ...mapActions('modal', ['s$modal__edit']),
+    ...mapActions('todos', ['s$todos__updateTodo', 's$todos__deleteTodo']),
+    handleEdit(item) {
+      this.s$modal__edit(item);
+    },
     handleChange() {
-      this.updateTodo({...this.item, done: !this.item.done})
+      this.s$todos__updateTodo({...this.item, done: !this.item.done})
     },
     handleDelete() {
-      this.deleteTodo(this.item._id)
+      this.s$todos__deleteTodo(this.item._id)
     }
   }
-
 }
 </script>
 

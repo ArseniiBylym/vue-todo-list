@@ -9,11 +9,8 @@
 <script>
 import {Layout} from '@/components';
 export default {
-  name: 'profile',
+  name: 'Profile',
   components: {Layout},
-  data() {
-    return {};
-  },
 };
 </script>
 
